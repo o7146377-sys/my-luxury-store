@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>متجر الفخامة | للمنصة العامة</title>
+    
+    <!-- ربط ملف الـ CSS عبر مسار السيرفر -->
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+    <!-- الترويسة العليا -->
+    <header>
+        <div class="logo">
+            <h1>مَـتْـجَـر الـفَـخَـامَـة العام</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="/">الرئيسية</a></li>
+                <li><a href="/seller" style="color: #d4af37; font-weight: bold;">+ كن بائعاً معنا</a></li>
+            </ul>
+        </nav>
+        <div class="cart-icon" id="cart-toggle">
+            <span class="icon">🛒</span>
+            <span id="cart-count">0</span>
+        </div>
+    </header>
+
+    <!-- السلة الجانبية -->
+    <div class="cart-drawer" id="cart-drawer">
+        <div class="drawer-header">
+            <h3>سلة المشتريات</h3>
+            <button id="close-cart">❌</button>
+        </div>
+        <div class="drawer-content">
+            <ul id="cart-items-list"></ul>
+            <div class="cart-total">
+                <span>المجموع الإجمالي:</span>
+                <span id="total-price">0</span> ر.س
+            </div>
+            <button class="checkout-btn" id="go-to-checkout">الانتقال للدفع وتأكيد الطلب</button>
+        </div>
+    </div>
+
+    <main>
+        <!-- الواجهة الترحيبية -->
+        <section class="hero-section">
+            <div class="hero-content">
+                <h2>منصة الفخامة الحرة للبائعين</h2>
+                <p>تسوق من مختلف البائعين المحترفين في مكان واحد.</p>
+                <a href="/seller" class="cta-btn" style="text-decoration: none;">ابدأ البيع الآن</a>
+            </div>
+        </section>
+
+        <!-- قسم المنتجات الديناميكي -->
+        <section class="products-section">
+            <h3 class="section-title">المنتجات المعروضة حديثاً</h3>
+            <div class="products-grid" id="dynamic-products-grid">
+                <!-- المنتجات ستظهر هنا تلقائياً عبر السيرفر -->
+            </div>
+        </section>
+
+        <!-- قسم الشراء والدفع -->
+        <section class="checkout-section" id="checkout-section" style="display: none;">
+            <div class="checkout-container">
+                <h3>إتمام طلبك الفاخر</h3>
+                <form id="order-form">
+                    <div class="form-group">
+                        <label>الاسم الكامل:</label>
+                        <input type="text" id="client-name" required placeholder="اكتب اسمك الثلاثي">
+                    </div>
+                    <div class="form-group">
+                        <label>رقم الجوال (واتساب):</label>
+                        <input type="tel" id="client-phone" required placeholder="05xxxxxxxx">
+                    </div>
+                    <div class="form-group">
+                        <label>عنوان الشحن:</label>
+                        <input type="text" id="client-address" required placeholder="المدينة - الحي">
+                    </div>
+                    <button type="submit" class="submit-order-btn">تأكيد الطلب وشحن المنتجات 🎉</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>جميع الحقوق محفوظة © 2026 | منصة الفخامة متعددة البائعين</p>
+    </footer>
+
+    <!-- كود الجي إس المطور لربط المتجر بالواتساب وديناميكية السيرفر -->
+    <script>
+        const cartToggle = document.getElementById('cart-toggle');
+        const cartDrawer = document.getElementById('cart-drawer');
+        const closeCart = document.getElementById('close-cart');
+        const cartCount = document.getElementById('cart-count');
+        const cartItemsList = document.getElementById('cart-items-list');
+        const totalPriceElement = document.getElementById('total-price');
+        const goToCheckout = document.getElementById('go-to-checkout');
+        const checkoutSection = document.getElementById('checkout-section');
+        const orderForm = document.getElementById('order-form');
+
+        let cart = [];
+
+        cartToggle.addEventListener('click', () => cartDrawer.classList.add('open'));
+        closeCart.addEventListener('click', () => cartDrawer.classList.remove('open'));
+
+        async function loadProducts() {
+            try {
+                const response = await fetch('/api/products');
+                const products = await response.json();
+                const grid = document.getElementById('dynamic-products-grid');
+                grid.innerHTML = '';
+
+                products.forEach(p => {
+                    const card = document.createElement('div');
+                    card.className = 'product-card';
+                    card.innerHTML = `
+                        <img src="${p.img}" class="product-img" onerror="this.src='https://images.unsplash.com/photo-1531403009284-440f080d1e12?q=80&w=500'">
+                        <h4>${p.name}</h4>
+                        <p class="price"><span>${p.price}</span> ر.س</p>
+                        <button class="add-to-cart-btn" onclick="addToCart('${p.name}', ${p.price})">إضافة للسلة 🛒</button>
+                    `;
+                    grid.appendChild(card);
+                });
+            } catch (error) {
+                console.error("خطأ في جلب المنتجات:", error);
+            }
+        }
+
+        function addToCart(name, price) {
+            cart.push({ name, price });
+            updateCartUI();
+            cartToggle.style.transform = "scale(1.2)";
+            setTimeout(() => cartToggle.style.transform = "scale(1)", 200);
+        }
+
+        function updateCartUI() {
+            cartCount.textContent = cart.length;
+            cartItemsList.innerHTML = '';
+            let total = 0;
+            
+            cart.forEach((item, index) => {
+                const li = document.createElement('li');
+                li.style.display = "flex";
+                li.style.justifyContent = "space-between";
+                li.style.padding = "8px 0";
+                li.style.borderBottom = "1px dashed #eee";
+                li.innerHTML = `
+                    <span>${item.name}</span> 
+                    <span>${item.price} ر.س 
+                        <button onclick="removeFromCart(${index})" style="background:none; border:none; color:red; cursor:pointer; margin-right:5px;">❌</button>
+                    </span>
+                `;
+                cartItemsList.appendChild(li);
+                total += item.price;
+            });
+            totalPriceElement.textContent = total;
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCartUI();
+        }
+
+        goToCheckout.addEventListener('click', () => {
+            if(cart.length === 0) { 
+                alert("سلتك فارغة، قم بإضافة منتجات أولاً!"); 
+                return; 
+            }
+            cartDrawer.classList.remove('open');
+            checkoutSection.style.display = 'block';
+            checkoutSection.scrollIntoView({ behavior: 'smooth' });
+        });
+
+        orderForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const clientName = document.getElementById('client-name').value;
+            const clientPhone = document.getElementById('client-phone').value;
+            const clientAddress = document.getElementById('client-address').value;
+            
+            let productsText = "";
+            let total = 0;
+            cart.forEach((item, i) => {
+                productsText += `${i+1}- ${item.name} (${item.price} ر.س)\n`;
+                total += item.price;
+            });
+
+            const whatsappMessage = `👑 *طلب شراء جديد من متجر الفخامة* 👑\n\n` +
+                                    `👤 *بيانات العميل:* \n` +
+                                    `• الاسم: ${clientName}\n` +
+                                    `• الجوال: ${clientPhone}\n` +
+                                    `• العنوان: ${clientAddress}\n\n` +
+                                    `📦 *المنتجات المطلوبة:* \n${productsText}\n` +
+                                    `💰 *المجموع الإجمالي:* ${total} ر.س\n\n` +
+                                    `🚀 يرجى تجهيز الطلب فوراً!`;
+
+            const encodedMessage = encodeURIComponent(whatsappMessage);
+            const adminPhoneNumber = "966500000000"; // ضع رقمك هنا مستقبلاً
+
+            window.open(`https://wa.me/${adminPhoneNumber}?text=${encodedMessage}`, '_blank');
+
+            alert("تم إعداد طلبك! سيتم نقلك الآن إلى الواتساب لتأكيده مع الإدارة. 🎉");
+            cart = [];
+            updateCartUI();
+            orderForm.reset();
+            checkoutSection.style.display = 'none';
+        });
+
+        loadProducts();
+    </script>
+</body>
+</html>
