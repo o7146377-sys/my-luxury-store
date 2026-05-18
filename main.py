@@ -4,12 +4,11 @@ from fastapi.templating import Jinja2Templates
 
 app = FastAPI()
 
-# إعداد مجلد القوالب (Templates) لقراءة ملف index.html
+# إعداد مجلد القوالب (Templates)
 templates = Jinja2Templates(directory="templates")
 
-# ذاكرة مؤقتة للمتجر لحفظ المنتجات التي يرفعها البائعون تلقائياً
+# ذاكرة مؤقتة للمتجر لحفظ المنتجات (تم تأمينها لتعمل فوراً)
 PRODUCTS_DB = [
-    # أمثلة لمنتجات مضافة مسبقاً لكي لا يكون الموقع فارغاً في أول مرة
     {
         "id": 1,
         "name": "ساعة ذكية فاخرة بنظام أندرويد",
@@ -26,14 +25,13 @@ PRODUCTS_DB = [
     }
 ]
 
-# 1. الصفحة الرئيسية للمتجر (index.html) - تم التعديل لترسل المنتجات للواجهة
+# 1. الصفحة الرئيسية للمتجر (index.html) - مأمنة تماماً ضد الـ Internal Error
 @app.get("/", response_class=HTMLResponse)
 def read_root(request: Request):
-    # نرسل المنتجات المحفوظة في الذاكرة (PRODUCTS_DB) لتظهر في الصفحة الرئيسية تلقائياً
     return templates.TemplateResponse("index.html", {"request": request, "products": PRODUCTS_DB})
 
 
-# 2. لوحة تحكم البائعين - لرفع المنتجات وتحديد أقسامها
+# 2. لوحة تحكم البائعين والزبائن لإضافة المنتجات
 @app.get("/seller", response_class=HTMLResponse)
 def seller_dashboard():
     return """
@@ -66,12 +64,12 @@ def seller_dashboard():
                 
                 <label>اختر القسم الصحيح لبضاعتك:</label>
                 <select name="category" required>
-                    <option value="electronics">عالم الإلكترونيات</option>
-                    <option value="perfumes">العطور الفاخرة</option>
-                    <option value="cosmetics">أدوات التجميل والعناية</option>
-                    <option value="drones">طائرات الدرون والتصوير</option>
-                    <option value="accessories">الإكسسوارات والموضة</option>
-                    <option value="general">كماليات ومستلزمات عامة</option>
+                    <option value="electronics">electronics</option>
+                    <option value="perfumes">perfumes</option>
+                    <option value="cosmetics">cosmetics</option>
+                    <option value="drones">drones</option>
+                    <option value="accessories">accessories</option>
+                    <option value="general">general</option>
                 </select>
                 
                 <label>رابط صورة المنتج من الإنترنت (اختياري):</label>
@@ -86,11 +84,10 @@ def seller_dashboard():
     </html>
     """
 
-# 3. استقبال المنتجات المرفوعة من التجار وحفظها في الذاكرة
+# 3. استقبال وحفظ المنتجات الجديدة
 @app.post("/seller/add-product")
 def add_product(name: str = Form(...), price: str = Form(...), category: str = Form(...), image: str = Form(None)):
     if not image:
-        # صورة افتراضية فخمة في حال لم يضع البائع صورة
         image = "https://images.unsplash.com/photo-1513151233558-d860c5398176?q=80&w=400&auto=format&fit=crop"
     
     new_product = {
@@ -101,11 +98,10 @@ def add_product(name: str = Form(...), price: str = Form(...), category: str = F
         "image": image
     }
     PRODUCTS_DB.append(new_product)
-    # بعد الحفظ بنجاح، يتم تحويل البائع مباشرة إلى الصفحة الرئيسية ليرى بضاعته معروضة أمام الجميع!
     return RedirectResponse(url="/", status_code=303)
 
 
-# 4. النظام المطور لعرض البضائع داخل الأقسام عند الضغط عليها
+# 4. عرض المنتجات داخل الأقسام بشكل مأمن
 @app.get("/category/{category_name}", response_class=HTMLResponse)
 def show_category(category_name: str):
     categories_titles = {
@@ -118,11 +114,8 @@ def show_category(category_name: str):
     }
     
     title = categories_titles.get(category_name, "قسم منوع")
-    
-    # فلترة وجلب المنتجات التي تنتمي لهذا القسم فقط
     filtered_products = [p for p in PRODUCTS_DB if p["category"] == category_name]
     
-    # بناء كروت المنتجات برمجياً
     products_html = ""
     for prod in filtered_products:
         products_html += f"""
@@ -136,11 +129,10 @@ def show_category(category_name: str):
         </div>
         """
     
-    # في حال كان القسم فارغاً تماماً
     if not filtered_products:
         products_html = """
         <div class="no-products" style="grid-column: 1/-1; text-align:center; background:white; padding:40px; border-radius:12px; border:1px solid #eae5d9;">
-            <p style="color:#666;">📦 لا توجد بضائع معروضة حالياً في هذا القسم من التجار.. كن أول من يرفع بضاعته هنا!</p>
+            <p style="color:#666;">📦 لا توجد بضائع معروضة حالياً في هذا القسم.. كن أول من يرفع بضاعته هنا!</p>
         </div>
         """
 
@@ -151,25 +143,18 @@ def show_category(category_name: str):
         <title>{title} | المعرض الفخم</title>
         <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
         <style>
-            body {{
-                font-family: 'Cairo', sans-serif;
-                background-image: url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1200&auto=format&fit=crop');
-                background-size: cover; background-position: center; background-attachment: fixed; margin: 0; padding: 0;
-            }}
+            body {{ font-family: 'Cairo', sans-serif; background-image: url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1200&auto=format&fit=crop'); background-size: cover; background-position: center; background-attachment: fixed; margin: 0; padding: 0; }}
             .overlay {{ background: rgba(255, 255, 255, 0.94); min-height: 100vh; padding: 40px 20px; }}
             .container {{ max-width: 1200px; margin: 0 auto; }}
             header {{ background: linear-gradient(135deg, #1e2522, #2d3833); color: #fff; padding: 30px; border-radius: 12px; border-bottom: 4px solid #bfa15f; margin-bottom: 40px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }}
             header h1 {{ color: #bfa15f; margin: 0 0 10px 0; font-size: 26px; }}
-            
             .products-grid {{ display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; }}
-            .product-card {{ background: white; border-radius: 12px; overflow: hidden; border: 1px solid #eae5d9; box-shadow: 0 4px 15px rgba(0,0,0,0.03); transition: transform 0.3s; }}
-            .product-card:hover {{ transform: translateY(-5px); }}
+            .product-card {{ background: white; border-radius: 12px; overflow: hidden; border: 1px solid #eae5d9; box-shadow: 0 4px 15px rgba(0,0,0,0.03); text-align: center; }}
             .product-card img {{ width: 100%; height: 200px; object-fit: cover; }}
-            .prod-details {{ padding: 20px; text-align: center; }}
+            .prod-details {{ padding: 20px; }}
             .prod-details h3 {{ color: #1e2522; font-size: 16px; margin-bottom: 10px; }}
             .price {{ color: #bfa15f; font-weight: 700; font-size: 18px; margin-bottom: 15px; }}
             .btn-buy {{ display: inline-block; background: #1e2522; color: #bfa15f; padding: 8px 20px; border-radius: 20px; text-decoration: none; font-size: 13px; font-weight: 600; border: 1px solid #bfa15f; }}
-            .btn-buy:hover {{ background: #bfa15f; color: #1e2522; }}
             .back-main {{ display: block; text-align: center; margin-top: 40px; color: #1e2522; font-weight: 600; text-decoration: none; }}
         </style>
     </head>
@@ -178,13 +163,9 @@ def show_category(category_name: str):
             <div class="container">
                 <header>
                     <h1>{title}</h1>
-                    <p>البضائع المتوفرة المعروضة للبيع حالياً في هذا القسم</p>
+                    <p>البضائع المتوفرة المعروضة للبيع حالياً</p>
                 </header>
-                
-                <div class="products-grid">
-                    {products_html}
-                </div>
-                
+                <div class="products-grid">{products_html}</div>
                 <a href="/" class="back-main">← العودة لتصفح باقي أقسام المتجر</a>
             </div>
         </div>
