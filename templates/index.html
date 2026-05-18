@@ -3,57 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>المتجر الفخم المتكامل | سوقك الرقمي</title>
-    <!-- استدعاء خط Cairo الفخم من جوجل -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
-    
+    <title>المعرض الفخم المطور</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Cairo', sans-serif;
+        :root {
+            --primary-color: #1e2522;
+            --accent-color: #bfa15f;
+            --bg-color: #faf9f6;
+            --text-color: #333;
         }
 
         body {
-            background-image: url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1200&auto=format&fit=crop');
+            font-family: 'Cairo', sans-serif;
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+            color: var(--text-color);
+        }
+
+        .navbar {
+            background-color: var(--primary-color);
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 3px solid var(--accent-color);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .navbar .logo {
+            color: var(--accent-color);
+            font-size: 22px;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .btn-seller {
+            background: linear-gradient(135deg, var(--accent-color), #9a7f43);
+            color: white;
+            padding: 8px 18px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            box-shadow: 0 4px 10px rgba(191, 161, 95, 0.3);
+        }
+
+        .hero {
+            background-image: linear-gradient(rgba(30, 37, 34, 0.8), rgba(30, 37, 34, 0.8)), url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1200&auto=format&fit=crop');
             background-size: cover;
             background-position: center;
-            background-attachment: fixed;
-            color: #2c2c2c;
-            min-height: 100vh;
-        }
-
-        .overlay {
-            background: rgba(255, 255, 255, 0.93);
-            min-height: 100vh;
-            padding-bottom: 60px;
-        }
-
-        header {
-            background: linear-gradient(135deg, #1e2522, #2d3833);
-            color: #fff;
-            padding: 40px 20px;
+            color: white;
             text-align: center;
-            border-bottom: 4px solid #bfa15f;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            padding: 60px 20px;
         }
 
-        header h1 {
-            color: #bfa15f;
+        .hero h1 {
+            color: var(--accent-color);
             font-size: 32px;
-            font-weight: 700;
             margin-bottom: 10px;
         }
 
-        header p {
-            font-size: 16px;
-            color: #eae5d9;
-        }
-
-        .main-container {
+        .container {
             max-width: 1200px;
             margin: 40px auto;
             padding: 0 20px;
@@ -61,175 +72,153 @@
 
         .section-title {
             text-align: center;
-            color: #1e2522;
-            margin-top: 40px;
-            margin-bottom: 10px;
-            font-size: 28px;
-            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 30px;
+            font-size: 24px;
+            position: relative;
         }
 
-        .section-subtitle {
-            text-align: center;
-            color: #666;
-            font-size: 16px;
-            margin-bottom: 40px;
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background-color: var(--accent-color);
+            margin: 8px auto 0;
         }
 
-        .categories-grid, .products-grid {
-            display: flex;
-            justify-content: center;
-            gap: 25px;
-            flex-wrap: wrap;
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px;
+            margin-bottom: 50px;
         }
 
-        .category-card, .product-card {
-            background: #ffffff;
-            border-radius: 16px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
-            width: 340px;
-            overflow: hidden;
+        .category-card {
+            background: white;
             border: 1px solid #eae5d9;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-radius: 12px;
+            padding: 25px 15px;
+            text-align: center;
             text-decoration: none;
+            color: var(--primary-color);
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-color);
+            background-color: var(--primary-color);
+            color: var(--accent-color);
+        }
+
+        .category-card .icon {
+            font-size: 30px;
+            margin-bottom: 10px;
             display: block;
         }
 
-        .category-card:hover, .product-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 25px rgba(191, 161, 95, 0.2);
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 25px;
         }
 
-        .image-gallery, .product-card img {
-            display: flex;
-            height: 200px;
+        .product-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #eae5d9;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+        }
+
+        .product-card img {
             width: 100%;
-            border-bottom: 1px solid #eae5d9;
+            height: 200px;
             object-fit: cover;
         }
 
-        .image-gallery img {
-            width: 50%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .category-details, .prod-details {
-            padding: 25px;
+        .product-details {
+            padding: 20px;
             text-align: center;
         }
 
-        .category-details h3, .prod-details h3 {
-            color: #1e2522;
-            font-size: 19px;
-            margin-bottom: 10px;
-            font-weight: 600;
+        .product-details h3 {
+            font-size: 16px;
+            margin: 0 0 10px 0;
+            color: var(--primary-color);
         }
 
-        .category-details p {
-            color: #666;
-            font-size: 13px;
-            min-height: 40px;
-            margin-bottom: 15px;
-        }
-
-        .price {
-            color: #bfa15f;
+        .product-details .price {
+            color: var(--accent-color);
             font-weight: 700;
-            font-size: 20px;
+            font-size: 18px;
             margin-bottom: 15px;
         }
 
-        .btn-browse, .btn-buy {
+        .btn-buy {
             display: inline-block;
-            background: linear-gradient(135deg, #bfa15f, #9a7f43);
-            color: white;
-            padding: 8px 30px;
-            border-radius: 25px;
+            background: var(--primary-color);
+            color: var(--accent-color);
+            padding: 8px 24px;
+            border-radius: 20px;
             text-decoration: none;
-            font-weight: 600;
             font-size: 13px;
-        }
-
-        .footer-nav {
-            text-align: center;
-            margin-top: 60px;
-        }
-
-        .btn-seller {
-            display: inline-block;
-            background: #1e2522;
-            color: #bfa15f;
-            padding: 10px 25px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-size: 14px;
             font-weight: 600;
-            border: 1px solid #bfa15f;
+            border: 1px solid var(--accent-color);
         }
     </style>
 </head>
 <body>
 
-    <div class="overlay">
-        <header>
-            <h1>الـمـتـجـر الـفـخـم الـمـتـكـامـل</h1>
-            <p>اضغط على أي قسم للتصفح، أو انزل لأسفل لرؤية المنتجات المعروضة حديثاً</p>
-        </header>
+    <nav class="navbar">
+        <a href="/" class="logo">👑 المعرض الفخم</a>
+        <a href="/seller" class="btn-seller">📦 إضافة بضاعتك كتاجر</a>
+    </nav>
 
-        <main class="main-container">
-            <!-- 1. أقسام المتجر الرئيسية -->
-            <h2 class="section-title">تصفح أقسام البضائع</h2>
-            <p class="section-subtitle">انقر على القسم لتدخل مباشرة لصفحة المنتجات وتفاصيلها</p>
-            
-            <div class="categories-grid">
-                <!-- قسم الإلكترونيات -->
-                <a href="/category/electronics" class="category-card">
-                    <div class="image-gallery"><img src="https://images.unsplash.com/photo-1593642632823-8f785ba67e45?q=80&w=400" alt=""><img src="https://images.unsplash.com/photo-1547119957-637f8679db1e?q=80&w=400" alt=""></div>
-                    <div class="category-details"><h3>عالم الإلكترونيات</h3><p>أحدث الحواسب الشخصية والملحقات التقنية المتطورة.</p><span class="btn-browse">تصفح القسم</span></div>
-                </a>
+    <div class="hero">
+        <h1>مرحباً بك في المعرض المطور</h1>
+        <p>تصفح أرقى المنتجات والبضائع أو أضف منتجك الخاص الآن بكل سهولة</p>
+    </div>
 
-                <!-- قسم العطور -->
-                <a href="/category/perfumes" class="category-card">
-                    <div class="image-gallery"><img src="https://images.unsplash.com/photo-1541643600914-78b084683601?q=80&w=400" alt=""><img src="https://images.unsplash.com/photo-1594035910387-fea47794261f?q=80&w=400" alt=""></div>
-                    <div class="category-details"><h3>العطور الفاخرة</h3><p>روائح ساحرة ونفحات شرقية وفرنسية مميزة.</p><span class="btn-browse">تصفح القسم</span></div>
-                </a>
+    <div class="container">
+        <h2 class="section-title">أقسام المعرض الرئيسية</h2>
+        <div class="categories-grid">
+            <a href="/category/electronics" class="category-card">
+                <span class="icon">💻</span> الإلكترونيات
+            </a>
+            <a href="/category/perfumes" class="category-card">
+                <span class="icon">✨</span> العطور الفاخرة
+            </a>
+            <a href="/category/cosmetics" class="category-card">
+                <span class="icon">💄</span> أدوات التجميل
+            </a>
+            <a href="/category/drones" class="category-card">
+                <span class="icon">🛸</span> طائرات درون
+            </a>
+            <a href="/category/accessories" class="category-card">
+                <span class="icon">⌚</span> الإكسسوارات
+            </a>
+            <a href="/category/general" class="category-card">
+                <span class="icon">📦</span> كماليات عامة
+            </a>
+        </div>
 
-                <!-- قسم أدوات التجميل -->
-                <a href="/category/cosmetics" class="category-card">
-                    <div class="image-gallery"><img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?q=80&w=400" alt=""><img src="https://images.unsplash.com/photo-1608248597481-496100c8c836?q=80&w=400" alt=""></div>
-                    <div class="category-details"><h3>أدوات التجميل والعناية</h3><p>منتجات ومستحضرات منتقاة بعناية فائقة للجمال الشخصي.</p><span class="btn-browse">تصفح القسم</span></div>
-                </a>
-            </div>
-
-            <hr style="margin: 50px 0; border: 0; border-top: 1px solid #eae5d9;">
-
-            <!-- 2. قسم عرض المنتجات الحية المضافة من البائع (هنا السحر الحقيقي) -->
-            <h2 class="section-title">🛍️ أحدث البضائع المعروضة للبيع</h2>
-            <p class="section-subtitle">هذه المنتجات تم رفعها وتحديثها فوراً بواسطة التجار والبائعين في الموقع</p>
-            
-            <div class="products-grid">
-                <!-- كود بايثون الذكي الذي يكرر المنتجات المضافة تلقائياً -->
-                {% for prod in products %}
-                <div class="product-card">
-                    <img src="{{ prod.image }}" alt="{{ prod.name }}">
-                    <div class="prod-details">
-                        <h3>{{ prod.name }}</h3>
-                        <div class="price">{{ prod.price }}</div>
-                        <a href="#" class="btn-buy">🛒 شراء الآن</a>
-                    </div>
+        <h2 class="section-title">أحدث المنتجات المضافة</h2>
+        <div class="products-grid">
+            {% for product in products %}
+            <div class="product-card">
+                <img src="{{ product.image }}" alt="{{ product.name }}">
+                <div class="product-details">
+                    <h3>{{ product.name }}</h3>
+                    <div class="price">{{ product.price }}</div>
+                    <a href="#" class="btn-buy">🛒 إضافة للسلة</a>
                 </div>
-                {% else %}
-                <div style="text-align: center; color: #666; background: white; padding: 30px; border-radius: 12px; width: 100%; border: 1px solid #eae5d9;">
-                    <p>📦 لا توجد منتجات مضافة حالياً في واجهة العرض.. اذهب للوحة التحكم واضف منتجك الأول ليظهر هنا فوراً!</p>
-                </div>
-                {% endfor %}
             </div>
-
-            <!-- زر الانتقال للوحة التحكم -->
-            <div class="footer-nav">
-                <a href="/seller" class="btn-seller">بوابة البائعين ونظام إضافة المنتجات ( /seller ) ←</a>
-            </div>
-        </main>
+            {% endfor %}
+        </div>
     </div>
 
 </body>
