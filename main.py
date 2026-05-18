@@ -1,13 +1,8 @@
-from fastapi import FastAPI, Request, Form
-from fastapi.responses import HTMLResponse, RedirectResponse
-from fastapi.templating import Jinja2Templates
+from flask import Flask, render_template, request, redirect, url_for
 
-app = FastAPI()
+app = Flask(__name__, template_folder="templates")
 
-# إعداد مجلد القوالب (Templates)
-templates = Jinja2Templates(directory="templates")
-
-# ذاكرة مؤقتة للمتجر لحفظ المنتجات (تم تأمينها لتعمل فوراً)
+# قاعدة البيانات المؤقتة للمنتجات (متوافقة تماماً مع الـ Flask)
 PRODUCTS_DB = [
     {
         "id": 1,
@@ -25,14 +20,14 @@ PRODUCTS_DB = [
     }
 ]
 
-# 1. الصفحة الرئيسية للمتجر (index.html) - مأمنة تماماً ضد الـ Internal Error
-@app.get("/", response_class=HTMLResponse)
-def read_root(request: Request):
-    return templates.TemplateResponse("index.html", {"request": request, "products": PRODUCTS_DB})
+# 1. الصفحة الرئيسية للمتجر
+@app.route("/")
+def read_root():
+    return render_template("index.html", products=PRODUCTS_DB)
 
 
 # 2. لوحة تحكم البائعين والزبائن لإضافة المنتجات
-@app.get("/seller", response_class=HTMLResponse)
+@app.route("/seller")
 def seller_dashboard():
     return """
     <html lang="ar" dir="rtl">
@@ -45,7 +40,7 @@ def seller_dashboard():
             .box { background: white; max-width: 600px; margin: 0 auto; padding: 30px; border-radius: 12px; border: 1px solid #eae5d9; box-shadow: 0 4px 15px rgba(0,0,0,0.05); text-align: right; }
             h1 { color: #bfa15f; text-align: center; margin-bottom: 25px; }
             label { display: block; margin-top: 15px; font-weight: 600; color: #1e2522; }
-            input, select { width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #eae5d9; border-radius: 6px; font-family: 'Cairo'; font-size: 14px; }
+            input, select { width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #eae5d9; border-radius: 6px; font-family: 'Cairo'; font-size: 14px; box-sizing: border-box; }
             .btn-submit { width: 100%; display: block; background: linear-gradient(135deg, #bfa15f, #9a7f43); color: white; padding: 12px; text-decoration: none; border-radius: 6px; margin-top: 25px; border: none; font-weight: 700; cursor: pointer; font-size: 16px; }
             .btn-back { display: inline-block; text-align: center; margin-top: 20px; color: #666; text-decoration: none; font-size: 14px; width: 100%; text-align: center; }
         </style>
@@ -85,8 +80,13 @@ def seller_dashboard():
     """
 
 # 3. استقبال وحفظ المنتجات الجديدة
-@app.post("/seller/add-product")
-def add_product(name: str = Form(...), price: str = Form(...), category: str = Form(...), image: str = Form(None)):
+@app.route("/seller/add-product", methods=["POST"])
+def add_product():
+    name = request.form.get("name")
+    price = request.form.get("price")
+    category = request.form.get("category")
+    image = request.form.get("image")
+    
     if not image:
         image = "https://images.unsplash.com/photo-1513151233558-d860c5398176?q=80&w=400&auto=format&fit=crop"
     
@@ -98,12 +98,12 @@ def add_product(name: str = Form(...), price: str = Form(...), category: str = F
         "image": image
     }
     PRODUCTS_DB.append(new_product)
-    return RedirectResponse(url="/", status_code=303)
+    return redirect(url_for("read_root"))
 
 
 # 4. عرض المنتجات داخل الأقسام بشكل مأمن
-@app.get("/category/{category_name}", response_class=HTMLResponse)
-def show_category(category_name: str):
+@app.route("/category/<category_name>")
+def show_category(category_name):
     categories_titles = {
         "electronics": "عالم الإلكترونيات والتقنية",
         "perfumes": "العطور الفاخرة والزيوت العطرية",
@@ -172,3 +172,6 @@ def show_category(category_name: str):
     </body>
     </html>
     """
+
+if __name__ == "__main__":
+    app.run(debug=True)
