@@ -92,17 +92,33 @@
             overflow: hidden;
             border: 1px solid #eae5d9;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            display: block;
         }
 
         .category-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 12px 25px rgba(191, 161, 95, 0.15);
+            box-shadow: 0 12px 25px rgba(191, 161, 95, 0.2);
         }
 
-        .category-card img {
-            width: 100%;
+        /* حاوي الصور المتعددة داخل الكارد */
+        .image-gallery {
+            display: flex;
             height: 200px;
+            width: 100%;
+            border-bottom: 1px solid #eae5d9;
+        }
+
+        .image-gallery img {
+            width: 50%; /* كل صورة تأخذ نصف المساحة لعرض تنوع البضائع */
+            height: 100%;
             object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .category-card:hover .image-gallery img {
+            transform: scale(1.03);
         }
 
         .category-details {
@@ -135,11 +151,6 @@
             font-weight: 600;
             font-size: 13px;
             box-shadow: 0 4px 10px rgba(191, 161, 95, 0.2);
-            transition: background 0.3s ease;
-        }
-
-        .btn-browse:hover {
-            background: linear-gradient(135deg, #9a7f43, #bfa15f);
         }
 
         .footer-nav {
@@ -158,7 +169,6 @@
             font-weight: 600;
             border: 1px solid #bfa15f;
             box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-            transition: all 0.3s ease;
         }
 
         .btn-seller:hover {
@@ -173,75 +183,99 @@
         <!-- الهيدر العلوي الفخم للمتجر -->
         <header>
             <h1>الـمـتـجـر الـفـخـم الـمـتـكـامـل</h1>
-            <p>منصتك الذكية لتسوق وبيع أحدث المنتجات العالمية بجودة استثنائية</p>
+            <p>اضغط على أي قسم للدخول مباشرة واستعراض البضائع الفاخرة المتاحة</p>
         </header>
 
         <!-- القسم الرئيسي للأقسام -->
         <main class="main-container">
-            <h2 class="section-title">تصفح حسب الأقسام</h2>
-            <p class="section-subtitle">اكتشف مجموعتنا الواسعة من المنتجات الفاخرة المنسقة بعناية</p>
+            <h2 class="section-title">تصفح أقسام البضائع</h2>
+            <p class="section-subtitle">انقر على القسم لتدخل مباشرة لصفحة المنتجات وتفاصيلها</p>
             
             <div class="categories-grid">
                 
                 <!-- 1. قسم الإلكترونيات -->
-                <div class="category-card">
-                    <img src="https://images.unsplash.com/photo-1593642632823-8f785ba67e45?q=80&w=600&auto=format&fit=crop" alt="عالم الإلكترونيات">
+                <a href="/category/electronics" class="category-card">
+                    <!-- صور متعددة: لابتوب وشاشات حواسب متطورة -->
+                    <div class="image-gallery">
+                        <img src="https://images.unsplash.com/photo-1593642632823-8f785ba67e45?q=80&w=400&auto=format&fit=crop" alt="لابتوب حديث">
+                        <img src="https://images.unsplash.com/photo-1547119957-637f8679db1e?q=80&w=400&auto=format&fit=crop" alt="شاشة كمبيوتر ومستلزمات">
+                    </div>
                     <div class="category-details">
                         <h3>عالم الإلكترونيات</h3>
                         <p>أحدث الحواسب الشخصية، الشاشات الذكية، وملحقات التقنية المتطورة التي تبحث عنها.</p>
-                        <a href="#" class="btn-browse">تصفح المنتجات</a>
+                        <span class="btn-browse">تصفح البضائع فوراً</span>
                     </div>
-                </div>
+                </a>
 
                 <!-- 2. قسم العطور الفاخرة -->
-                <div class="category-card">
-                    <img src="https://images.unsplash.com/photo-1541643600914-78b084683601?q=80&w=600&auto=format&fit=crop" alt="العطور الفاخرة">
+                <a href="/category/perfumes" class="category-card">
+                    <!-- صور متعددة: عطور شرقية وفرنسية فاخرة بالذهب والزجاج -->
+                    <div class="image-gallery">
+                        <img src="https://images.unsplash.com/photo-1541643600914-78b084683601?q=80&w=400&auto=format&fit=crop" alt="عطور فرنسية">
+                        <img src="https://images.unsplash.com/photo-1594035910387-fea47794261f?q=80&w=400&auto=format&fit=crop" alt="عطور زيتية فخمة">
+                    </div>
                     <div class="category-details">
                         <h3>العطور الفاخرة</h3>
                         <p>روائح ساحرة ونفحات شرقية وفرنسية مميزة تليق بذوقك الرفيع وتدوم طويلاً.</p>
-                        <a href="#" class="btn-browse">تصفح المنتجات</a>
+                        <span class="btn-browse">تصفح البضائع فوراً</span>
                     </div>
-                </div>
+                </a>
 
                 <!-- 3. قسم أدوات التجميل والعناية -->
-                <div class="category-card">
-                    <img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?q=80&w=600&auto=format&fit=crop" alt="أدوات التجميل والعناية">
+                <a href="/category/cosmetics" class="category-card">
+                    <!-- صور متعددة: مستحضرات تجميل وأدوات عناية بالبشرة ناعمة -->
+                    <div class="image-gallery">
+                        <img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?q=80&w=400&auto=format&fit=crop" alt="أدوات مكياج">
+                        <img src="https://images.unsplash.com/photo-1608248597481-496100c8c836?q=80&w=400&auto=format&fit=crop" alt="منتجات عناية بالبشرة">
+                    </div>
                     <div class="category-details">
                         <h3>أدوات التجميل والعناية</h3>
                         <p>منتجات ومستحضرات منتقاة بعناية فائقة لأعلى مستويات العناية والجمال الشخصي.</p>
-                        <a href="#" class="btn-browse">تصفح المنتجات</a>
+                        <span class="btn-browse">تصفح البضائع فوراً</span>
                     </div>
-                </div>
+                </a>
 
                 <!-- 4. قسم طائرات الدرون والتصوير -->
-                <div class="category-card">
-                    <img src="https://images.unsplash.com/photo-1508614589041-895b88991e3e?q=80&w=600&auto=format&fit=crop" alt="طائرات درون">
+                <a href="/category/drones" class="category-card">
+                    <!-- صور متعددة: طائرات درون ذكية أثناء التحليق والتصوير -->
+                    <div class="image-gallery">
+                        <img src="https://images.unsplash.com/photo-1508614589041-895b88991e3e?q=80&w=400&auto=format&fit=crop" alt="طائرة درون ذكية">
+                        <img src="https://images.unsplash.com/photo-1473968512647-3e447244af8f?q=80&w=400&auto=format&fit=crop" alt="تصوير جوي بدرون">
+                    </div>
                     <div class="category-details">
                         <h3>طائرات درون والتصوير</h3>
                         <p>حلق في السماء مع أحدث طائرات التحكم عن بعد وكاميرات التصوير الجوي الاحترافية.</p>
-                        <a href="#" class="btn-browse">تصفح المنتجات</a>
+                        <span class="btn-browse">تصفح البضائع فوراً</span>
                     </div>
-                </div>
+                </a>
 
                 <!-- 5. قسم الإكسسوارات والموضة -->
-                <div class="category-card">
-                    <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=600&auto=format&fit=crop" alt="الإكسسوارات والموضة">
+                <a href="/category/accessories" class="category-card">
+                    <!-- صور متعددة: ساعات ذكية ونظارات فخمة بلمسات جلدية وذهبية -->
+                    <div class="image-gallery">
+                        <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=400&auto=format&fit=crop" alt="ساعة يد فخمة">
+                        <img src="https://images.unsplash.com/photo-1511499767150-a48a237f0083?q=80&w=400&auto=format&fit=crop" alt="نظارات شمسية أنيقة">
+                    </div>
                     <div class="category-details">
                         <h3>الإكسسوارات والموضة</h3>
                         <p>ساعات ذكية، نظارات شمسية، ومقتنيات يومية أنيقة تكتمل بها هيبتك وإطلالتك.</p>
-                        <a href="#" class="btn-browse">تصفح المنتجات</a>
+                        <span class="btn-browse">تصفح البضائع فوراً</span>
                     </div>
-                </div>
+                </a>
 
                 <!-- 6. قسم الكماليات والمستلزمات العامة -->
-                <div class="category-card">
-                    <img src="https://images.unsplash.com/photo-1513151233558-d860c5398176?q=80&w=600&auto=format&fit=crop" alt="كماليات ومستلزمات عامة">
+                <a href="/category/general" class="category-card">
+                    <!-- صور متعددة: هدايا وكماليات وبضائع منوعة من الماركت -->
+                    <div class="image-gallery">
+                        <img src="https://images.unsplash.com/photo-1513151233558-d860c5398176?q=80&w=400&auto=format&fit=crop" alt="كماليات ومستلزمات منوعة">
+                        <img src="https://images.unsplash.com/photo-1481627834876-b7833e8f5570?q=80&w=400&auto=format&fit=crop" alt="منتجات عامة مميزة">
+                    </div>
                     <div class="category-details">
                         <h3>كماليات ومستلزمات عامة</h3>
                         <p>مساحة تجارية منوعة مفتوحة للتجار تضم أفضل البضائع الاستهلاكية والكماليات والهدايا.</p>
-                        <a href="#" class="btn-browse">تصفح المنتجات</a>
+                        <span class="btn-browse">تصفح البضائع فوراً</span>
                     </div>
-                </div>
+                </a>
 
             </div>
 
