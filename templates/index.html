@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>المتجر الفخم المتكامل | سوقك الرقمي</title>
+    <title>مركز طبيعة الشفاء | العناية والاسترخاء</title>
     <!-- استدعاء خط Cairo الفخم من جوجل -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,7 +18,7 @@
         }
 
         body {
-            /* خلفية رخامية ناعمة وفخمة مدمجة مباشرة */
+            /* خلفية رخامية ناعمة مدمجة مباشرة */
             background-image: url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1200&auto=format&fit=crop');
             background-size: cover;
             background-position: center;
@@ -28,7 +28,7 @@
         }
 
         .overlay {
-            background: rgba(255, 255, 255, 0.93);
+            background: rgba(255, 255, 255, 0.92);
             min-height: 100vh;
             padding-bottom: 60px;
         }
@@ -36,7 +36,7 @@
         header {
             background: linear-gradient(135deg, #1e2522, #2d3833);
             color: #fff;
-            padding: 40px 20px;
+            padding: 30px 20px;
             text-align: center;
             border-bottom: 4px solid #bfa15f;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
@@ -44,10 +44,9 @@
 
         header h1 {
             color: #bfa15f;
-            font-size: 32px;
+            font-size: 28px;
             font-weight: 700;
             margin-bottom: 10px;
-            letter-spacing: 1px;
         }
 
         header p {
@@ -62,103 +61,100 @@
             padding: 0 20px;
         }
 
-        .section-title {
+        .services-title {
             text-align: center;
             color: #1e2522;
-            margin-bottom: 10px;
-            font-size: 28px;
-            font-weight: 700;
-        }
-
-        .section-subtitle {
-            text-align: center;
-            color: #666;
-            font-size: 16px;
             margin-bottom: 40px;
+            font-size: 26px;
+            position: relative;
         }
 
-        .categories-grid {
+        .services-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 3px;
+            background: #bfa15f;
+            margin: 10px auto 0;
+            border-radius: 2px;
+        }
+
+        .services-grid {
             display: flex;
             justify-content: center;
-            gap: 25px;
+            gap: 30px;
             flex-wrap: wrap;
         }
 
-        .category-card {
+        .service-card {
             background: #ffffff;
             border-radius: 16px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
-            width: 340px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+            width: 320px;
             overflow: hidden;
             border: 1px solid #eae5d9;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: transform 0.3s ease;
         }
 
-        .category-card:hover {
+        .service-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 12px 25px rgba(191, 161, 95, 0.15);
         }
 
-        .category-card img {
+        .service-card img {
             width: 100%;
-            height: 200px;
+            height: 220px;
             object-fit: cover;
         }
 
-        .category-details {
+        .service-details {
             padding: 25px;
             text-align: center;
         }
 
-        .category-details h3 {
+        .service-details h3 {
             color: #1e2522;
-            font-size: 19px;
-            margin-bottom: 10px;
+            font-size: 20px;
+            margin-bottom: 12px;
             font-weight: 600;
         }
 
-        .category-details p {
+        .service-details p {
             color: #666;
-            font-size: 13px;
+            font-size: 14px;
             line-height: 1.6;
-            min-height: 40px;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
 
-        .btn-browse {
+        .btn-booking {
             display: inline-block;
             background: linear-gradient(135deg, #bfa15f, #9a7f43);
             color: white;
-            padding: 8px 30px;
+            padding: 10px 30px;
             border-radius: 25px;
             text-decoration: none;
             font-weight: 600;
-            font-size: 13px;
-            box-shadow: 0 4px 10px rgba(191, 161, 95, 0.2);
-            transition: background 0.3s ease;
+            font-size: 14px;
+            box-shadow: 0 4px 10px rgba(191, 161, 95, 0.3);
         }
 
-        .btn-browse:hover {
+        .btn-booking:hover {
             background: linear-gradient(135deg, #9a7f43, #bfa15f);
         }
 
         .footer-nav {
             text-align: center;
-            margin-top: 60px;
+            margin-top: 50px;
         }
 
         .btn-seller {
             display: inline-block;
             background: #1e2522;
             color: #bfa15f;
-            padding: 10px 25px;
+            padding: 8px 20px;
             border-radius: 8px;
             text-decoration: none;
             font-size: 14px;
-            font-weight: 600;
             border: 1px solid #bfa15f;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-            transition: all 0.3s ease;
         }
 
         .btn-seller:hover {
@@ -170,84 +166,45 @@
 <body>
 
     <div class="overlay">
-        <!-- الهيدر العلوي الفخم للمتجر -->
+        <!-- الهيدر العلوي الفخم -->
         <header>
-            <h1>الـمـتـجـر الـفـخـم الـمـتـكـامـل</h1>
-            <p>منصتك الذكية لتسوق وبيع أحدث المنتجات العالمية بجودة استثنائية</p>
+            <h1>مركز طبيعة الشفاء للـمـسـاج والـعـنـايـة</h1>
+            <p>تجربة استرخاء ملوكية تليق بك وبأعلى معايير الجودة</p>
         </header>
 
-        <!-- القسم الرئيسي للأقسام -->
+        <!-- القسم الرئيسي للمشروع -->
         <main class="main-container">
-            <h2 class="section-title">تصفح حسب الأقسام</h2>
-            <p class="section-subtitle">اكتشف مجموعتنا الواسعة من المنتجات الفاخرة المنسقة بعناية</p>
+            <h2 class="services-title">خدماتنا المتميزة</h2>
             
-            <div class="categories-grid">
+            <div class="services-grid">
                 
-                <!-- 1. قسم الإلكترونيات -->
-                <div class="category-card">
-                    <img src="https://images.unsplash.com/photo-1593642632823-8f785ba67e45?q=80&w=600&auto=format&fit=crop" alt="عالم الإلكترونيات">
-                    <div class="category-details">
-                        <h3>عالم الإلكترونيات</h3>
-                        <p>أحدث الحواسب الشخصية، الشاشات الذكية، وملحقات التقنية المتطورة التي تبحث عنها.</p>
-                        <a href="#" class="btn-browse">تصفح المنتجات</a>
+                <!-- الخدمة الأولى: المساج العلاجي -->
+                <div class="service-card">
+                    <!-- صورة مساج احترافية من الذكاء الاصطناعي بدقة عالية -->
+                    <img src="https://images.unsplash.com/photo-1600334089648-b0d9d3028eb2?q=80&w=600&auto=format&fit=crop" alt="المساج العلاجي">
+                    <div class="service-details">
+                        <h3>المساج الاسترخائي والعلاجي</h3>
+                        <p>تخلص من ضغوطات الحياة وجدد طاقة جسدك بالكامل بأيدي أمهر الخبراء والمتخصصين لدينا في بيئة هادئة ومريحة.</p>
+                        <a href="#" class="btn-booking">احجز جلستك الآن</a>
                     </div>
                 </div>
 
-                <!-- 2. قسم العطور الفاخرة -->
-                <div class="category-card">
-                    <img src="https://images.unsplash.com/photo-1541643600914-78b084683601?q=80&w=600&auto=format&fit=crop" alt="العطور الفاخرة">
-                    <div class="category-details">
-                        <h3>العطور الفاخرة</h3>
-                        <p>روائح ساحرة ونفحات شرقية وفرنسية مميزة تليق بذوقك الرفيع وتدوم طويلاً.</p>
-                        <a href="#" class="btn-browse">تصفح المنتجات</a>
-                    </div>
-                </div>
-
-                <!-- 3. قسم أدوات التجميل والعناية -->
-                <div class="category-card">
-                    <img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?q=80&w=600&auto=format&fit=crop" alt="أدوات التجميل والعناية">
-                    <div class="category-details">
-                        <h3>أدوات التجميل والعناية</h3>
-                        <p>منتجات ومستحضرات منتقاة بعناية فائقة لأعلى مستويات العناية والجمال الشخصي.</p>
-                        <a href="#" class="btn-browse">تصفح المنتجات</a>
-                    </div>
-                </div>
-
-                <!-- 4. قسم طائرات الدرون والتصوير -->
-                <div class="category-card">
-                    <img src="https://images.unsplash.com/photo-1508614589041-895b88991e3e?q=80&w=600&auto=format&fit=crop" alt="طائرات درون">
-                    <div class="category-details">
-                        <h3>طائرات درون والتصوير</h3>
-                        <p>حلق في السماء مع أحدث طائرات التحكم عن بعد وكاميرات التصوير الجوي الاحترافية.</p>
-                        <a href="#" class="btn-browse">تصفح المنتجات</a>
-                    </div>
-                </div>
-
-                <!-- 5. قسم الإكسسوارات والموضة -->
-                <div class="category-card">
-                    <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=600&auto=format&fit=crop" alt="الإكسسوارات والموضة">
-                    <div class="category-details">
-                        <h3>الإكسسوارات والموضة</h3>
-                        <p>ساعات ذكية، نظارات شمسية، ومقتنيات يومية أنيقة تكتمل بها هيبتك وإطلالتك.</p>
-                        <a href="#" class="btn-browse">تصفح المنتجات</a>
-                    </div>
-                </div>
-
-                <!-- 6. قسم الكماليات والمستلزمات العامة -->
-                <div class="category-card">
-                    <img src="https://images.unsplash.com/photo-1513151233558-d860c5398176?q=80&w=600&auto=format&fit=crop" alt="كماليات ومستلزمات عامة">
-                    <div class="category-details">
-                        <h3>كماليات ومستلزمات عامة</h3>
-                        <p>مساحة تجارية منوعة مفتوحة للتجار تضم أفضل البضائع الاستهلاكية والكماليات والهدايا.</p>
-                        <a href="#" class="btn-browse">تصفح المنتجات</a>
+                <!-- الخدمة الثانية: البديكير الملكي -->
+                <div class="service-card">
+                    <!-- صورة بديكير وعناية بالقدمين فخمة وجذابة -->
+                    <img src="https://images.unsplash.com/photo-1519415510236-8a5d6404b764?q=80&w=600&auto=format&fit=crop" alt="العناية بالقدمين بديكير">
+                    <div class="service-details">
+                        <h3>العناية الملكية بالقدمين (بديكير)</h3>
+                        <p>جلسات تنظيف وتقشير عميق للقدمين باستخدام أملاح طبيعية ومواد مغذية فائقة الجودة لراحة ونعومة لا مثيل لها.</p>
+                        <a href="#" class="btn-booking">احجز جلستك الآن</a>
                     </div>
                 </div>
 
             </div>
 
-            <!-- زر الانتقال للوحة تحكم المشرفين والبائعين -->
+            <!-- زر الانتقال للوحة التحكم والأنظمة المحاسبية -->
             <div class="footer-nav">
-                <a href="/seller" class="btn-seller">بوابة البائعين والنظام المحاسبي ( /seller ) ←</a>
+                <a href="/seller" class="btn-seller">دخول المشرفين والنظام المحاسبي ←</a>
             </div>
         </main>
     </div>
