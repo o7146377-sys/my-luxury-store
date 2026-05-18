@@ -3,212 +3,254 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>متجر الفخامة | للمنصة العامة</title>
+    <title>المتجر الفخم المتكامل | سوقك الرقمي</title>
+    <!-- استدعاء خط Cairo الفخم من جوجل -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
     
-    <!-- ربط ملف الـ CSS عبر مسار السيرفر -->
-    <link rel="stylesheet" href="/static/style.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        body {
+            /* خلفية رخامية ناعمة وفخمة مدمجة مباشرة */
+            background-image: url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1200&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: #2c2c2c;
+            min-height: 100vh;
+        }
+
+        .overlay {
+            background: rgba(255, 255, 255, 0.93);
+            min-height: 100vh;
+            padding-bottom: 60px;
+        }
+
+        header {
+            background: linear-gradient(135deg, #1e2522, #2d3833);
+            color: #fff;
+            padding: 40px 20px;
+            text-align: center;
+            border-bottom: 4px solid #bfa15f;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            color: #bfa15f;
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+        }
+
+        header p {
+            font-size: 16px;
+            color: #eae5d9;
+            font-weight: 300;
+        }
+
+        .main-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            color: #1e2522;
+            margin-bottom: 10px;
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: #666;
+            font-size: 16px;
+            margin-bottom: 40px;
+        }
+
+        .categories-grid {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            flex-wrap: wrap;
+        }
+
+        .category-card {
+            background: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+            width: 340px;
+            overflow: hidden;
+            border: 1px solid #eae5d9;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(191, 161, 95, 0.15);
+        }
+
+        .category-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .category-details {
+            padding: 25px;
+            text-align: center;
+        }
+
+        .category-details h3 {
+            color: #1e2522;
+            font-size: 19px;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .category-details p {
+            color: #666;
+            font-size: 13px;
+            line-height: 1.6;
+            min-height: 40px;
+            margin-bottom: 15px;
+        }
+
+        .btn-browse {
+            display: inline-block;
+            background: linear-gradient(135deg, #bfa15f, #9a7f43);
+            color: white;
+            padding: 8px 30px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 13px;
+            box-shadow: 0 4px 10px rgba(191, 161, 95, 0.2);
+            transition: background 0.3s ease;
+        }
+
+        .btn-browse:hover {
+            background: linear-gradient(135deg, #9a7f43, #bfa15f);
+        }
+
+        .footer-nav {
+            text-align: center;
+            margin-top: 60px;
+        }
+
+        .btn-seller {
+            display: inline-block;
+            background: #1e2522;
+            color: #bfa15f;
+            padding: 10px 25px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            border: 1px solid #bfa15f;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+
+        .btn-seller:hover {
+            background: #bfa15f;
+            color: #1e2522;
+        }
+    </style>
 </head>
 <body>
 
-    <!-- الترويسة العليا -->
-    <header>
-        <div class="logo">
-            <h1>مَـتْـجَـر الـفَـخَـامَـة العام</h1>
-        </div>
-        <nav>
-            <ul>
-                <li><a href="/">الرئيسية</a></li>
-                <li><a href="/seller" style="color: #d4af37; font-weight: bold;">+ كن بائعاً معنا</a></li>
-            </ul>
-        </nav>
-        <div class="cart-icon" id="cart-toggle">
-            <span class="icon">🛒</span>
-            <span id="cart-count">0</span>
-        </div>
-    </header>
+    <div class="overlay">
+        <!-- الهيدر العلوي الفخم للمتجر -->
+        <header>
+            <h1>الـمـتـجـر الـفـخـم الـمـتـكـامـل</h1>
+            <p>منصتك الذكية لتسوق وبيع أحدث المنتجات العالمية بجودة استثنائية</p>
+        </header>
 
-    <!-- السلة الجانبية -->
-    <div class="cart-drawer" id="cart-drawer">
-        <div class="drawer-header">
-            <h3>سلة المشتريات</h3>
-            <button id="close-cart">❌</button>
-        </div>
-        <div class="drawer-content">
-            <ul id="cart-items-list"></ul>
-            <div class="cart-total">
-                <span>المجموع الإجمالي:</span>
-                <span id="total-price">0</span> ر.س
+        <!-- القسم الرئيسي للأقسام -->
+        <main class="main-container">
+            <h2 class="section-title">تصفح حسب الأقسام</h2>
+            <p class="section-subtitle">اكتشف مجموعتنا الواسعة من المنتجات الفاخرة المنسقة بعناية</p>
+            
+            <div class="categories-grid">
+                
+                <!-- 1. قسم الإلكترونيات -->
+                <div class="category-card">
+                    <img src="https://images.unsplash.com/photo-1593642632823-8f785ba67e45?q=80&w=600&auto=format&fit=crop" alt="عالم الإلكترونيات">
+                    <div class="category-details">
+                        <h3>عالم الإلكترونيات</h3>
+                        <p>أحدث الحواسب الشخصية، الشاشات الذكية، وملحقات التقنية المتطورة التي تبحث عنها.</p>
+                        <a href="#" class="btn-browse">تصفح المنتجات</a>
+                    </div>
+                </div>
+
+                <!-- 2. قسم العطور الفاخرة -->
+                <div class="category-card">
+                    <img src="https://images.unsplash.com/photo-1541643600914-78b084683601?q=80&w=600&auto=format&fit=crop" alt="العطور الفاخرة">
+                    <div class="category-details">
+                        <h3>العطور الفاخرة</h3>
+                        <p>روائح ساحرة ونفحات شرقية وفرنسية مميزة تليق بذوقك الرفيع وتدوم طويلاً.</p>
+                        <a href="#" class="btn-browse">تصفح المنتجات</a>
+                    </div>
+                </div>
+
+                <!-- 3. قسم أدوات التجميل والعناية -->
+                <div class="category-card">
+                    <img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?q=80&w=600&auto=format&fit=crop" alt="أدوات التجميل والعناية">
+                    <div class="category-details">
+                        <h3>أدوات التجميل والعناية</h3>
+                        <p>منتجات ومستحضرات منتقاة بعناية فائقة لأعلى مستويات العناية والجمال الشخصي.</p>
+                        <a href="#" class="btn-browse">تصفح المنتجات</a>
+                    </div>
+                </div>
+
+                <!-- 4. قسم طائرات الدرون والتصوير -->
+                <div class="category-card">
+                    <img src="https://images.unsplash.com/photo-1508614589041-895b88991e3e?q=80&w=600&auto=format&fit=crop" alt="طائرات درون">
+                    <div class="category-details">
+                        <h3>طائرات درون والتصوير</h3>
+                        <p>حلق في السماء مع أحدث طائرات التحكم عن بعد وكاميرات التصوير الجوي الاحترافية.</p>
+                        <a href="#" class="btn-browse">تصفح المنتجات</a>
+                    </div>
+                </div>
+
+                <!-- 5. قسم الإكسسوارات والموضة -->
+                <div class="category-card">
+                    <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=600&auto=format&fit=crop" alt="الإكسسوارات والموضة">
+                    <div class="category-details">
+                        <h3>الإكسسوارات والموضة</h3>
+                        <p>ساعات ذكية، نظارات شمسية، ومقتنيات يومية أنيقة تكتمل بها هيبتك وإطلالتك.</p>
+                        <a href="#" class="btn-browse">تصفح المنتجات</a>
+                    </div>
+                </div>
+
+                <!-- 6. قسم الكماليات والمستلزمات العامة -->
+                <div class="category-card">
+                    <img src="https://images.unsplash.com/photo-1513151233558-d860c5398176?q=80&w=600&auto=format&fit=crop" alt="كماليات ومستلزمات عامة">
+                    <div class="category-details">
+                        <h3>كماليات ومستلزمات عامة</h3>
+                        <p>مساحة تجارية منوعة مفتوحة للتجار تضم أفضل البضائع الاستهلاكية والكماليات والهدايا.</p>
+                        <a href="#" class="btn-browse">تصفح المنتجات</a>
+                    </div>
+                </div>
+
             </div>
-            <button class="checkout-btn" id="go-to-checkout">الانتقال للدفع وتأكيد الطلب</button>
-        </div>
+
+            <!-- زر الانتقال للوحة تحكم المشرفين والبائعين -->
+            <div class="footer-nav">
+                <a href="/seller" class="btn-seller">بوابة البائعين والنظام المحاسبي ( /seller ) ←</a>
+            </div>
+        </main>
     </div>
 
-    <main>
-        <!-- الواجهة الترحيبية -->
-        <section class="hero-section">
-            <div class="hero-content">
-                <h2>منصة الفخامة الحرة للبائعين</h2>
-                <p>تسوق من مختلف البائعين المحترفين في مكان واحد.</p>
-                <a href="/seller" class="cta-btn" style="text-decoration: none;">ابدأ البيع الآن</a>
-            </div>
-        </section>
-
-        <!-- قسم المنتجات الديناميكي -->
-        <section class="products-section">
-            <h3 class="section-title">المنتجات المعروضة حديثاً</h3>
-            <div class="products-grid" id="dynamic-products-grid">
-                <!-- المنتجات ستظهر هنا تلقائياً عبر السيرفر -->
-            </div>
-        </section>
-
-        <!-- قسم الشراء والدفع -->
-        <section class="checkout-section" id="checkout-section" style="display: none;">
-            <div class="checkout-container">
-                <h3>إتمام طلبك الفاخر</h3>
-                <form id="order-form">
-                    <div class="form-group">
-                        <label>الاسم الكامل:</label>
-                        <input type="text" id="client-name" required placeholder="اكتب اسمك الثلاثي">
-                    </div>
-                    <div class="form-group">
-                        <label>رقم الجوال (واتساب):</label>
-                        <input type="tel" id="client-phone" required placeholder="05xxxxxxxx">
-                    </div>
-                    <div class="form-group">
-                        <label>عنوان الشحن:</label>
-                        <input type="text" id="client-address" required placeholder="المدينة - الحي">
-                    </div>
-                    <button type="submit" class="submit-order-btn">تأكيد الطلب وشحن المنتجات 🎉</button>
-                </form>
-            </div>
-        </section>
-    </main>
-
-    <footer>
-        <p>جميع الحقوق محفوظة © 2026 | منصة الفخامة متعددة البائعين</p>
-    </footer>
-
-    <!-- كود الجي إس المطور لربط المتجر بالواتساب وديناميكية السيرفر -->
-    <script>
-        const cartToggle = document.getElementById('cart-toggle');
-        const cartDrawer = document.getElementById('cart-drawer');
-        const closeCart = document.getElementById('close-cart');
-        const cartCount = document.getElementById('cart-count');
-        const cartItemsList = document.getElementById('cart-items-list');
-        const totalPriceElement = document.getElementById('total-price');
-        const goToCheckout = document.getElementById('go-to-checkout');
-        const checkoutSection = document.getElementById('checkout-section');
-        const orderForm = document.getElementById('order-form');
-
-        let cart = [];
-
-        cartToggle.addEventListener('click', () => cartDrawer.classList.add('open'));
-        closeCart.addEventListener('click', () => cartDrawer.classList.remove('open'));
-
-        async function loadProducts() {
-            try {
-                const response = await fetch('/api/products');
-                const products = await response.json();
-                const grid = document.getElementById('dynamic-products-grid');
-                grid.innerHTML = '';
-
-                products.forEach(p => {
-                    const card = document.createElement('div');
-                    card.className = 'product-card';
-                    card.innerHTML = `
-                        <img src="${p.img}" class="product-img" onerror="this.src='https://images.unsplash.com/photo-1531403009284-440f080d1e12?q=80&w=500'">
-                        <h4>${p.name}</h4>
-                        <p class="price"><span>${p.price}</span> ر.س</p>
-                        <button class="add-to-cart-btn" onclick="addToCart('${p.name}', ${p.price})">إضافة للسلة 🛒</button>
-                    `;
-                    grid.appendChild(card);
-                });
-            } catch (error) {
-                console.error("خطأ في جلب المنتجات:", error);
-            }
-        }
-
-        function addToCart(name, price) {
-            cart.push({ name, price });
-            updateCartUI();
-            cartToggle.style.transform = "scale(1.2)";
-            setTimeout(() => cartToggle.style.transform = "scale(1)", 200);
-        }
-
-        function updateCartUI() {
-            cartCount.textContent = cart.length;
-            cartItemsList.innerHTML = '';
-            let total = 0;
-            
-            cart.forEach((item, index) => {
-                const li = document.createElement('li');
-                li.style.display = "flex";
-                li.style.justifyContent = "space-between";
-                li.style.padding = "8px 0";
-                li.style.borderBottom = "1px dashed #eee";
-                li.innerHTML = `
-                    <span>${item.name}</span> 
-                    <span>${item.price} ر.س 
-                        <button onclick="removeFromCart(${index})" style="background:none; border:none; color:red; cursor:pointer; margin-right:5px;">❌</button>
-                    </span>
-                `;
-                cartItemsList.appendChild(li);
-                total += item.price;
-            });
-            totalPriceElement.textContent = total;
-        }
-
-        function removeFromCart(index) {
-            cart.splice(index, 1);
-            updateCartUI();
-        }
-
-        goToCheckout.addEventListener('click', () => {
-            if(cart.length === 0) { 
-                alert("سلتك فارغة، قم بإضافة منتجات أولاً!"); 
-                return; 
-            }
-            cartDrawer.classList.remove('open');
-            checkoutSection.style.display = 'block';
-            checkoutSection.scrollIntoView({ behavior: 'smooth' });
-        });
-
-        orderForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            
-            const clientName = document.getElementById('client-name').value;
-            const clientPhone = document.getElementById('client-phone').value;
-            const clientAddress = document.getElementById('client-address').value;
-            
-            let productsText = "";
-            let total = 0;
-            cart.forEach((item, i) => {
-                productsText += `${i+1}- ${item.name} (${item.price} ر.س)\n`;
-                total += item.price;
-            });
-
-            const whatsappMessage = `👑 *طلب شراء جديد من متجر الفخامة* 👑\n\n` +
-                                    `👤 *بيانات العميل:* \n` +
-                                    `• الاسم: ${clientName}\n` +
-                                    `• الجوال: ${clientPhone}\n` +
-                                    `• العنوان: ${clientAddress}\n\n` +
-                                    `📦 *المنتجات المطلوبة:* \n${productsText}\n` +
-                                    `💰 *المجموع الإجمالي:* ${total} ر.س\n\n` +
-                                    `🚀 يرجى تجهيز الطلب فوراً!`;
-
-            const encodedMessage = encodeURIComponent(whatsappMessage);
-            const adminPhoneNumber = "966500000000"; // ضع رقمك هنا مستقبلاً
-
-            window.open(`https://wa.me/${adminPhoneNumber}?text=${encodedMessage}`, '_blank');
-
-            alert("تم إعداد طلبك! سيتم نقلك الآن إلى الواتساب لتأكيده مع الإدارة. 🎉");
-            cart = [];
-            updateCartUI();
-            orderForm.reset();
-            checkoutSection.style.display = 'none';
-        });
-
-        loadProducts();
-    </script>
 </body>
 </html>
