@@ -1,22 +1,256 @@
-annotated-doc==0.0.4
-annotated-types==0.7.0
-anyio==4.13.0
-blinker==1.9.0
-click==8.3.3
-colorama==0.4.6
-fastapi==0.136.1
-Flask==3.1.3
-gunicorn==26.0.0
-h11==0.16.0
-idna==3.15
-itsdangerous==2.2.0
-Jinja2==3.1.6
-MarkupSafe==3.0.3
-packaging==26.2
-pydantic==2.13.4
-pydantic_core==2.46.4
-starlette==1.0.0
-typing-inspection==0.4.2
-typing_extensions==4.15.0
-uvicorn==0.47.0
-Werkzeug==3.1.8
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>المتجر الفخم المتكامل | سوقك الرقمي</title>
+    <!-- استدعاء خط Cairo الفخم من جوجل -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        body {
+            /* خلفية رخامية ناعمة وفخمة مدمجة مباشرة */
+            background-image: url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1200&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: #2c2c2c;
+            min-height: 100vh;
+        }
+
+        .overlay {
+            background: rgba(255, 255, 255, 0.93);
+            min-height: 100vh;
+            padding-bottom: 60px;
+        }
+
+        header {
+            background: linear-gradient(135deg, #1e2522, #2d3833);
+            color: #fff;
+            padding: 40px 20px;
+            text-align: center;
+            border-bottom: 4px solid #bfa15f;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            color: #bfa15f;
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+        }
+
+        header p {
+            font-size: 16px;
+            color: #eae5d9;
+            font-weight: 300;
+        }
+
+        .main-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            color: #1e2522;
+            margin-bottom: 10px;
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: #666;
+            font-size: 16px;
+            margin-bottom: 40px;
+        }
+
+        .categories-grid {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            flex-wrap: wrap;
+        }
+
+        .category-card {
+            background: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+            width: 340px;
+            overflow: hidden;
+            border: 1px solid #eae5d9;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(191, 161, 95, 0.15);
+        }
+
+        .category-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .category-details {
+            padding: 25px;
+            text-align: center;
+        }
+
+        .category-details h3 {
+            color: #1e2522;
+            font-size: 19px;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .category-details p {
+            color: #666;
+            font-size: 13px;
+            line-height: 1.6;
+            min-height: 40px;
+            margin-bottom: 15px;
+        }
+
+        .btn-browse {
+            display: inline-block;
+            background: linear-gradient(135deg, #bfa15f, #9a7f43);
+            color: white;
+            padding: 8px 30px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 13px;
+            box-shadow: 0 4px 10px rgba(191, 161, 95, 0.2);
+            transition: background 0.3s ease;
+        }
+
+        .btn-browse:hover {
+            background: linear-gradient(135deg, #9a7f43, #bfa15f);
+        }
+
+        .footer-nav {
+            text-align: center;
+            margin-top: 60px;
+        }
+
+        .btn-seller {
+            display: inline-block;
+            background: #1e2522;
+            color: #bfa15f;
+            padding: 10px 25px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            border: 1px solid #bfa15f;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+
+        .btn-seller:hover {
+            background: #bfa15f;
+            color: #1e2522;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="overlay">
+        <!-- الهيدر العلوي الفخم للمتجر -->
+        <header>
+            <h1>الـمـتـجـر الـفـخـم الـمـتـكـامـل</h1>
+            <p>منصتك الذكية لتسوق وبيع أحدث المنتجات العالمية بجودة استثنائية</p>
+        </header>
+
+        <!-- القسم الرئيسي للأقسام -->
+        <main class="main-container">
+            <h2 class="section-title">تصفح حسب الأقسام</h2>
+            <p class="section-subtitle">اكتشف مجموعتنا الواسعة من المنتجات الفاخرة المنسقة بعناية</p>
+            
+            <div class="categories-grid">
+                
+                <!-- 1. قسم الإلكترونيات -->
+                <div class="category-card">
+                    <img src="https://images.unsplash.com/photo-1593642632823-8f785ba67e45?q=80&w=600&auto=format&fit=crop" alt="عالم الإلكترونيات">
+                    <div class="category-details">
+                        <h3>عالم الإلكترونيات</h3>
+                        <p>أحدث الحواسب الشخصية، الشاشات الذكية، وملحقات التقنية المتطورة التي تبحث عنها.</p>
+                        <a href="#" class="btn-browse">تصفح المنتجات</a>
+                    </div>
+                </div>
+
+                <!-- 2. قسم العطور الفاخرة -->
+                <div class="category-card">
+                    <img src="https://images.unsplash.com/photo-1541643600914-78b084683601?q=80&w=600&auto=format&fit=crop" alt="العطور الفاخرة">
+                    <div class="category-details">
+                        <h3>العطور الفاخرة</h3>
+                        <p>روائح ساحرة ونفحات شرقية وفرنسية مميزة تليق بذوقك الرفيع وتدوم طويلاً.</p>
+                        <a href="#" class="btn-browse">تصفح المنتجات</a>
+                    </div>
+                </div>
+
+                <!-- 3. قسم أدوات التجميل والعناية -->
+                <div class="category-card">
+                    <img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?q=80&w=600&auto=format&fit=crop" alt="أدوات التجميل والعناية">
+                    <div class="category-details">
+                        <h3>أدوات التجميل والعناية</h3>
+                        <p>منتجات ومستحضرات منتقاة بعناية فائقة لأعلى مستويات العناية والجمال الشخصي.</p>
+                        <a href="#" class="btn-browse">تصفح المنتجات</a>
+                    </div>
+                </div>
+
+                <!-- 4. قسم طائرات الدرون والتصوير -->
+                <div class="category-card">
+                    <img src="https://images.unsplash.com/photo-1508614589041-895b88991e3e?q=80&w=600&auto=format&fit=crop" alt="طائرات درون">
+                    <div class="category-details">
+                        <h3>طائرات درون والتصوير</h3>
+                        <p>حلق في السماء مع أحدث طائرات التحكم عن بعد وكاميرات التصوير الجوي الاحترافية.</p>
+                        <a href="#" class="btn-browse">تصفح المنتجات</a>
+                    </div>
+                </div>
+
+                <!-- 5. قسم الإكسسوارات والموضة -->
+                <div class="category-card">
+                    <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=600&auto=format&fit=crop" alt="الإكسسوارات والموضة">
+                    <div class="category-details">
+                        <h3>الإكسسوارات والموضة</h3>
+                        <p>ساعات ذكية، نظارات شمسية، ومقتنيات يومية أنيقة تكتمل بها هيبتك وإطلالتك.</p>
+                        <a href="#" class="btn-browse">تصفح المنتجات</a>
+                    </div>
+                </div>
+
+                <!-- 6. قسم الكماليات والمستلزمات العامة -->
+                <div class="category-card">
+                    <img src="https://images.unsplash.com/photo-1513151233558-d860c5398176?q=80&w=600&auto=format&fit=crop" alt="كماليات ومستلزمات عامة">
+                    <div class="category-details">
+                        <h3>كماليات ومستلزمات عامة</h3>
+                        <p>مساحة تجارية منوعة مفتوحة للتجار تضم أفضل البضائع الاستهلاكية والكماليات والهدايا.</p>
+                        <a href="#" class="btn-browse">تصفح المنتجات</a>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- زر الانتقال للوحة تحكم المشرفين والبائعين -->
+            <div class="footer-nav">
+                <a href="/seller" class="btn-seller">بوابة البائعين والنظام المحاسبي ( /seller ) ←</a>
+            </div>
+        </main>
+    </div>
+
+</body>
+</html>
