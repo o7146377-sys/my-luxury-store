@@ -9,7 +9,7 @@ templates = Jinja2Templates(directory="templates")
 
 # ذاكرة مؤقتة للمتجر لحفظ المنتجات التي يرفعها البائعون تلقائياً
 PRODUCTS_DB = [
-    # أمثلة لمنتجات مضافة مسبقاً لكي لا يكون الموقع فارغاً
+    # أمثلة لمنتجات مضافة مسبقاً لكي لا يكون الموقع فارغاً في أول مرة
     {
         "id": 1,
         "name": "ساعة ذكية فاخرة بنظام أندرويد",
@@ -26,13 +26,14 @@ PRODUCTS_DB = [
     }
 ]
 
-# 1. الصفحة الرئيسية للمتجر (index.html)
+# 1. الصفحة الرئيسية للمتجر (index.html) - تم التعديل لترسل المنتجات للواجهة
 @app.get("/", response_class=HTMLResponse)
 def read_root(request: Request):
-    return templates.TemplateResponse("index.html", {"request": request})
+    # نرسل المنتجات المحفوظة في الذاكرة (PRODUCTS_DB) لتظهر في الصفحة الرئيسية تلقائياً
+    return templates.TemplateResponse("index.html", {"request": request, "products": PRODUCTS_DB})
 
 
-# 2. لوحة تحكم البائعين المحدثة - لرفع المنتجات وتحديد أقسامها
+# 2. لوحة تحكم البائعين - لرفع المنتجات وتحديد أقسامها
 @app.get("/seller", response_class=HTMLResponse)
 def seller_dashboard():
     return """
@@ -85,7 +86,7 @@ def seller_dashboard():
     </html>
     """
 
-# 2.2 استقبال مبيعات التجار وحفظها في القسم الصحيح
+# 3. استقبال المنتجات المرفوعة من التجار وحفظها في الذاكرة
 @app.post("/seller/add-product")
 def add_product(name: str = Form(...), price: str = Form(...), category: str = Form(...), image: str = Form(None)):
     if not image:
@@ -100,11 +101,11 @@ def add_product(name: str = Form(...), price: str = Form(...), category: str = F
         "image": image
     }
     PRODUCTS_DB.append(new_product)
-    # بعد الحفظ بنجاح، يتم تحويل البائع مباشرة إلى صفحة القسم الذي اختاره ليرى بضاعته بعينه!
-    return RedirectResponse(url=f"/category/{category}", status_code=303)
+    # بعد الحفظ بنجاح، يتم تحويل البائع مباشرة إلى الصفحة الرئيسية ليرى بضاعته معروضة أمام الجميع!
+    return RedirectResponse(url="/", status_code=303)
 
 
-# 3. النظام المطور لعرض البضائع الفعلي المرفوعة من التجار حسب القسم
+# 4. النظام المطور لعرض البضائع داخل الأقسام عند الضغط عليها
 @app.get("/category/{category_name}", response_class=HTMLResponse)
 def show_category(category_name: str):
     categories_titles = {
@@ -118,10 +119,10 @@ def show_category(category_name: str):
     
     title = categories_titles.get(category_name, "قسم منوع")
     
-    # فلترة وجلب المنتجات التي تنتمي لهذا القسم فقط من الذاكرة
+    # فلترة وجلب المنتجات التي تنتمي لهذا القسم فقط
     filtered_products = [p for p in PRODUCTS_DB if p["category"] == category_name]
     
-    # بناء كروت المنتجات المرفوعة برمجياً
+    # بناء كروت المنتجات برمجياً
     products_html = ""
     for prod in filtered_products:
         products_html += f"""
@@ -160,7 +161,6 @@ def show_category(category_name: str):
             header {{ background: linear-gradient(135deg, #1e2522, #2d3833); color: #fff; padding: 30px; border-radius: 12px; border-bottom: 4px solid #bfa15f; margin-bottom: 40px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }}
             header h1 {{ color: #bfa15f; margin: 0 0 10px 0; font-size: 26px; }}
             
-            /* شبكة عرض المنتجات المرفوعة */
             .products-grid {{ display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; }}
             .product-card {{ background: white; border-radius: 12px; overflow: hidden; border: 1px solid #eae5d9; box-shadow: 0 4px 15px rgba(0,0,0,0.03); transition: transform 0.3s; }}
             .product-card:hover {{ transform: translateY(-5px); }}
