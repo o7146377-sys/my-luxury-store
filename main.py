@@ -3,6 +3,9 @@ from flask import Flask, render_template, request, redirect, url_for
 
 app = Flask(__name__, template_folder="templates")
 
+# لضمان تعامل السيرفر مع المتغير الأساسي
+application = app
+
 # قاعدة البيانات المؤقتة للمنتجات
 PRODUCTS_DB = [
     {
@@ -174,7 +177,6 @@ def show_category(category_name):
     </html>
     """
 
-# التعديل الذهبي لضمان التوافق مع خادم الإنتاج والمحلي معاً
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
